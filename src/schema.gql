@@ -1,0 +1,46 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AuthResponse {
+  access_token: String!
+  role: String!
+  user_id: String!
+  username: String!
+}
+
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String!
+  user_id: String!
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+  login(email: String!, password: String!): AuthResponse!
+  logout: Boolean!
+  refreshAccessToken: RefreshTokenResponse!
+}
+
+type Query {
+  getMe: User!
+  isAuthenticated: checkAuthResponse!
+}
+
+type RefreshTokenResponse {
+  accessToken: String!
+}
+
+type User {
+  email: String!
+  name: String!
+  password: String!
+  role: String!
+  user_id: String!
+}
+
+type checkAuthResponse {
+  is_authenticated: Boolean!
+  username: String
+}

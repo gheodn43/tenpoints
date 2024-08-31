@@ -1,0 +1,13 @@
+1. Khi đăng nhập thì sẽ tạo mới refresh token và access token => return access token
+2. Khi user truy cập lại (refresh token khả dụng) thì client gửi request đến api refreshAccessToken với refresh token được kèm theo trong cookie => return access token, username, user_id
+3. Khi Logout thì xóa cả access token và refresh token trong DB, cookie, và localstorage
+
+4. Đối với access token bị hết hạn => guard check => return 401 status => client send api refreshAccessToken 
+
+
+
+
+
+đã đăng nhập (tồn tại AC and name) mà yêu cầu /signin
+    => call api checkAuth với cookie => 
+    
