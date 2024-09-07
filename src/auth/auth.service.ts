@@ -71,26 +71,21 @@ export class AuthService{
         };
     }
     async refreshAccessToken(refreshToken: string) {
-        try {
           const { sub: userId, username: username, role: role} = this.jwtService.verify(refreshToken, {
             secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
           });
-          console.log("userId: "+ userId + ", username: "+ username + ", role: "+ role);
           const tokenData = await this.getRefreshToken(userId);
           if (!tokenData || tokenData.refreshToken !== refreshToken) {
             console.log('Invalid refresh token');
-            throw new UnauthorizedException('Invalid refresh token');
+            throw new UnauthorizedException('The account is already logged in elsewhere. Please log in again');
           }
           const now = new Date().toISOString();
           if (now > tokenData.expiresAt) {
             console.log('Refresh token expired');
-            throw new UnauthorizedException('Refresh token expired');
+            throw new UnauthorizedException('Login session has expired. Please log in again.');
           }
           const { accessToken } = await this.generateTokens(userId, username, role);
           return { accessToken };
-        } catch (error) {
-          throw new UnauthorizedException('Invalid or expired refresh token');
-        }
       }
       
 

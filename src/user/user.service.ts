@@ -1,8 +1,7 @@
-import { Injectable, Inject, UseGuards, NotFoundException } from '@nestjs/common';
+import { Injectable, Inject, NotFoundException } from '@nestjs/common';
 import { DynamoDBClient, PutItemCommand, GetItemCommand, QueryCommand} from '@aws-sdk/client-dynamodb';
 import * as bcrypt from 'bcrypt';
 import { CreateUserInput } from './user.schema';
-import { Role } from 'src/enum/role.enum';
 
 @Injectable()
 export class UserService {
@@ -55,7 +54,7 @@ export class UserService {
   async getUserByEmail(email: string): Promise<any> {
     const params = {
       TableName: 'tenpoint-users',
-      IndexName: 'EmailIndex', // Tên chỉ mục phụ
+      IndexName: 'EmailIndex',
       KeyConditionExpression: 'email = :email',
       ExpressionAttributeValues: {
         ':email': { S: email },

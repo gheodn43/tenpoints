@@ -16,6 +16,22 @@ input CreateUserInput {
   user_id: String!
 }
 
+type Deck {
+  deck_id: String!
+  deck_name: String!
+  deck_path: String!
+  learning_count: Int!
+  new_count: Int!
+  parent_deck_path: String
+  review_count: Int!
+  total_cards: Int!
+  user_id: String!
+}
+
+type DecksResponse {
+  decks: [Deck!]!
+}
+
 type Mutation {
   createUser(input: CreateUserInput!): User!
   login(email: String!, password: String!): AuthResponse!
@@ -24,6 +40,7 @@ type Mutation {
 }
 
 type Query {
+  getDecksByUserId: DecksResponse!
   getMe: User!
   isAuthenticated: checkAuthResponse!
 }

@@ -9,6 +9,7 @@ import { join } from 'path';
 import { DynamoDBModule} from './dynamodb/dynamodb.module'
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { FlashcardModule } from './flashcard/flashcard.module';
 
 
 @Module({
@@ -26,6 +27,7 @@ import { AuthModule } from './auth/auth.module';
     DynamoDBModule,
     AuthModule,
     UserModule,
+    FlashcardModule
     
   ],
   controllers: [],

@@ -1,8 +1,11 @@
 import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { User, CreateUserInput } from './user.schema';
-import { UnauthorizedException, UseGuards } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../guard/authentication.guard';
+import { RolesGuard } from 'src/guard/role.guard';
+import { Roles } from 'src/common/decorator/role.decorator';
+import { Role } from 'src/enum/role.enum';
 
 
 
@@ -17,7 +20,8 @@ export class UserResolver {
     return this.userService.createUser(input);
   }
   
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(Role.Free, Role.Premium)
   @Query(() => User)
   async getMe(@Context() context: any): Promise<User> {
     const userId = context.req.user.sub;

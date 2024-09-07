@@ -34,7 +34,6 @@ export class AuthResolver {
   @Mutation(() => RefreshTokenResponse)
   async refreshAccessToken(@Context() context): Promise<RefreshTokenResponse> {
     const refreshToken = context.req.cookies['refreshToken'];
-    console.log("RT: "+refreshToken)
     return this.authService.refreshAccessToken(refreshToken);
   }
 
