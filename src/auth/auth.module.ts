@@ -27,6 +27,7 @@ import { AuthService } from './auth.service';
 import { AuthResolver } from './auth.controller';
 import { UserModule } from '../user/user.module';
 import { SecurityConfig } from 'src/common/config/config.interface';
+import { AuthGuard } from 'src/guard/authentication.guard';
 
 @Module({
   imports: [
@@ -44,7 +45,7 @@ import { SecurityConfig } from 'src/common/config/config.interface';
       inject: [ConfigService],
     }),
   ],
-  providers: [AuthService, AuthResolver],
+  providers: [AuthService, AuthResolver, AuthGuard],
   controllers: [],
   exports: [AuthService],
 })

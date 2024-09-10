@@ -6,6 +6,8 @@ import { checkAuthResponse } from './dtos/check-auth-response.dto';
 import { Response } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { AuthGuard } from 'src/guard/authentication.guard';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver()
 export class AuthResolver {
@@ -46,12 +48,16 @@ export class AuthResolver {
         sameSite: 'strict',
         path: '/' 
     });
-      console.log('cookie is deleted')
       return true;
     } catch (error) {
-      console.error('Logout failed', error);
       return false;
     }
+  }
+
+  @UseGuards(AuthGuard)
+  @Query(() => Boolean)
+  async isAuthorizated(@Context() context: any): Promise<Boolean> {
+    return true;
   }
 
   @Query(() => checkAuthResponse)

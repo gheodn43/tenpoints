@@ -87,6 +87,22 @@ export class AuthService{
           const { accessToken } = await this.generateTokens(userId, username, role);
           return { accessToken };
       }
+
+      // async checkRefreshToken(refreshToken: string){
+      //   const { sub: userId} = this.jwtService.verify(refreshToken, {
+      //     secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+      //   });
+      //   const tokenData = await this.getRefreshToken(userId);
+      //   if (!tokenData || tokenData.refreshToken !== refreshToken) {
+      //     console.log('Invalid refresh token');
+      //     throw new UnauthorizedException('The account is already logged in elsewhere. Please log in again');
+      //   }
+      //   const now = new Date().toISOString();
+      //   if (now > tokenData.expiresAt) {
+      //     console.log('Refresh token expired');
+      //     throw new UnauthorizedException('Login session has expired. Please log in again.');
+      //   }
+      // }
       
 
     async saveRefreshToken(userId: string, refreshToken: string) {

@@ -9,6 +9,17 @@ type AuthResponse {
   username: String!
 }
 
+input CreateDeckInput {
+  deck_id: String!
+  deck_name: String!
+  deck_path: String!
+  learning_count: Float!
+  new_count: Float!
+  parent_deck_path: String!
+  review_count: Float!
+  total_cards: Float!
+}
+
 input CreateUserInput {
   email: String!
   name: String!
@@ -33,16 +44,20 @@ type DecksResponse {
 }
 
 type Mutation {
+  createDeck(createDeckInput: CreateDeckInput!): Boolean!
   createUser(input: CreateUserInput!): User!
+  deleteDeck(deck_id: String!): Boolean!
   login(email: String!, password: String!): AuthResponse!
   logout: Boolean!
   refreshAccessToken: RefreshTokenResponse!
+  updateDeck(updatedDeckInput: CreateDeckInput!): Boolean!
 }
 
 type Query {
   getDecksByUserId: DecksResponse!
   getMe: User!
   isAuthenticated: checkAuthResponse!
+  isAuthorizated: Boolean!
 }
 
 type RefreshTokenResponse {
